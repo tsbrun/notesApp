@@ -1,5 +1,5 @@
 import React from "react";
-import { View, TextInput, StyleSheet, Text } from "react-native";
+import { View, StyleSheet, Text } from "react-native";
 
 const Note = ({ title, body }) => {
   return (

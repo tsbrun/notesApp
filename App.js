@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Note from './components/Note';
 
 export default function App() {
@@ -12,7 +12,15 @@ export default function App() {
       title: "I'm hungry",
       body: "I want french fries"
     }
-  ])
+  ]);
+
+  // handleEditNote = (index) => {
+  //   // find note from notes
+  //   // render w/ EditNote.js
+  //   // updateNotes 
+  //   // render w/ Note.js
+  // };
+
   return (
     <View style={styles.container}>
       <Text style={styles.sectionTitle}>NOTES</Text>
@@ -20,7 +28,12 @@ export default function App() {
       <View style={styles.notesWrapper}>
         {
           notes.map( (note, index) => {
-            return <Note key={index} title={note.title} body={note.body} />
+            return (
+              <TouchableOpacity key={index}>
+                {/* onPress={() => handleEditNote(index)} */}
+                <Note title={note.title} body={note.body} />
+              </TouchableOpacity>
+            )
           })
         }
       </View>
@@ -41,7 +54,6 @@ const styles = StyleSheet.create({
   },
   notesWrapper: {
     paddingTop: 40,
-    // flexDirection: 'column',
     justifyContent: 'space-between'
   }
 });
