@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    paddingVertical: 60,
+    paddingTop: 80,
     paddingHorizontal: 20,
   },
   sectionTitle: {
@@ -25,7 +25,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   notesWrapper: {
-    paddingTop: 80,
-    paddingHorizontal: 20,
+    paddingTop: 40,
   }
 });
