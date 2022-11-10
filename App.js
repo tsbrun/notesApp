@@ -1,8 +1,15 @@
-import React, { useState } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import React, { createElement, useState } from 'react';
+import { Keyboard, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import Note from './components/Note';
 
 export default function App() {
+  const [newNote, setNewNote] = useState(false);
+  const [note, setNote] = useState(
+    {
+      title: "",
+      body: ""
+    }
+  );
   const [notes, updateNotes] = useState([
     {
       title: "Test",
@@ -21,24 +28,74 @@ export default function App() {
   //   // render w/ Note.js
   // };
 
-  return (
-    <View style={styles.container}>
-      <Text style={styles.sectionTitle}>NOTES</Text>
+  const clearNote = () => {
+    setNote(
+      {
+        title: "",
+        body: "",
+      }
+    )
+  }
 
-      <View style={styles.notesWrapper}>
-        {
-          notes.map( (note, index) => {
-            return (
-              <TouchableOpacity key={index}>
-                {/* onPress={() => handleEditNote(index)} */}
-                <Note title={note.title} body={note.body} />
-              </TouchableOpacity>
-            )
-          })
-        }
+  const saveNote = () => {
+    Keyboard.dismiss();
+    clearNote();
+    setNewNote(false);
+    updateNotes([...notes, note]);
+  }
+
+  if (newNote) {
+    return (
+      <View style={styles.container}>
+        <Text style={styles.sectionTitle}>NOTES</Text>
+
+        <View style={styles.notesWrapper}>
+
+          <TextInput 
+          style={{fontSize: 20, fontWeight: 'bold', paddingBottom: 20}}
+          placeholder='Title' 
+          value={note.title} 
+          onChangeText={text => setNote({...note, title: text})} 
+          />
+
+          <TextInput 
+          placeholder='Your text here...' 
+          value={note.body} 
+          onChangeText={text => setNote({...note, body: text})} 
+          />
+
+        </View>
+
+        <TouchableOpacity style={styles.newNoteBtn} onPress={() => saveNote()}>
+          <Text style={{fontSize: 15, fontWeight: 'bold', color: '#81D4FA'}}>Save Note</Text>
+        </TouchableOpacity>
       </View>
-    </View>
-  );
+    )
+  } else {
+      return (
+        <View style={styles.container}>
+          <Text style={styles.sectionTitle}>NOTES</Text>
+    
+          <View style={styles.notesWrapper}>
+            {
+              notes.map( (note, index) => {
+                return (
+                  <TouchableOpacity key={index}>
+                    {/* onPress={() => handleEditNote(index)} */}
+                    <Note title={note.title} body={note.body} />
+                  </TouchableOpacity>
+                )
+              })
+            }
+          </View>
+    
+          <TouchableOpacity style={styles.newNoteBtn} onPress={() => setNewNote(true)}>
+            <Text style={{fontSize: 15, fontWeight: 'bold', color: '#81D4FA'}}>New Note</Text>
+          </TouchableOpacity>
+        </View>
+      );
+  }
+
 }
 
 const styles = StyleSheet.create({
@@ -55,5 +112,9 @@ const styles = StyleSheet.create({
   notesWrapper: {
     paddingTop: 40,
     justifyContent: 'space-between'
-  }
+  },
+  newNoteBtn: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+  },
 });
