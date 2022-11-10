@@ -1,13 +1,12 @@
 import React from "react";
-import { View, TextInput, StyleSheet } from "react-native";
+import { View, TextInput, StyleSheet, Text } from "react-native";
 
-const Note = () => {
+const Note = ({ title, body }) => {
   return (
     <View style={styles.textWrapper}>
       {/* [styles.textWrapper, styles.shadow] */}
-      <TextInput style={styles.title} placeholder="Title" />
-
-      <TextInput style={styles.body} multiline={true} placeholder="Start writing..." />
+      <Text style={styles.title}>{title}</Text>
+      <Text style={styles.body}>{body}</Text>
     </View>
   )
 }
@@ -19,6 +18,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     paddingVertical: 10,
     paddingHorizontal: 10,
+    marginBottom: 20,
   },
   // shadow: {
   //   shadowColor: '#EAECEE',
